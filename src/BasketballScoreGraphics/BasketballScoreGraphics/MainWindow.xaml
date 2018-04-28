@@ -1,0 +1,57 @@
+﻿<Window x:Class="BasketballScoreGraphics.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BasketballScoreGraphics"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="48" Width="600" WindowStyle="None">
+    <Grid>
+        <Grid.Resources>
+            <Style x:Key="Team" TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Margin" Value="4" />
+                <Setter Property="FontSize" Value="20" />
+            </Style>
+            <Style x:Key="Score" TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="Margin" Value="4" />
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+            <Style x:Key="Quarter" TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="FontWeight" Value="Normal" />
+            </Style>
+            <Style x:Key="QuarterTitle" TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="8" />
+                <Setter Property="FontWeight" Value="Normal" />
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="60" />
+            <ColumnDefinition Width="40" />            
+            <ColumnDefinition Width="60" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />            
+            <RowDefinition  Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Column="2" Grid.RowSpan="2" Background="LightGray" />
+        <TextBlock Style="{StaticResource Team}" Text="Home" HorizontalAlignment="Right" />
+        <TextBlock Style="{StaticResource Team}" Grid.Column="4" Text="Away" HorizontalAlignment="Left" />
+        <TextBlock Style="{StaticResource Score}" Grid.Column="1" Text="43" />
+        <TextBlock Style="{StaticResource Score}" Grid.Column="3" Text="3" />
+        <TextBlock Style="{StaticResource Quarter}" Grid.Column="2" Text="1." />
+        <TextBlock Style="{StaticResource QuarterTitle}" Grid.Row="1" Grid.Column="2" Text="četrtina" />
+        <local:Fouls Grid.Row="1" Number="3" />
+        <local:Fouls Grid.Row="1" Grid.Column="4" Number="5" />
+    </Grid>
+</Window>
