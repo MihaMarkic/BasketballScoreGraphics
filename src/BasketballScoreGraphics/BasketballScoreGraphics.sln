@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasketballScoreGraphics", "BasketballScoreGraphics\BasketballScoreGraphics.csproj", "{D5ADCFD0-EB98-476A-9904-DE4FA2CAD369}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasketballScoreGraphics.Engine", "BasketballScoreGraphics.Engine\BasketballScoreGraphics.Engine.csproj", "{230DD973-E86D-48B4-A7DC-73A9F1AE41AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{D5ADCFD0-EB98-476A-9904-DE4FA2CAD369}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5ADCFD0-EB98-476A-9904-DE4FA2CAD369}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5ADCFD0-EB98-476A-9904-DE4FA2CAD369}.Release|Any CPU.Build.0 = Release|Any CPU
+		{230DD973-E86D-48B4-A7DC-73A9F1AE41AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{230DD973-E86D-48B4-A7DC-73A9F1AE41AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{230DD973-E86D-48B4-A7DC-73A9F1AE41AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{230DD973-E86D-48B4-A7DC-73A9F1AE41AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

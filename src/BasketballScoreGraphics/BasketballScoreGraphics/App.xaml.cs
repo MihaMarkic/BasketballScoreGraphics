@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Autofac;
+using BasketballScoreGraphics.Engine;
 using System.Windows;
 
 namespace BasketballScoreGraphics
@@ -13,5 +9,21 @@ namespace BasketballScoreGraphics
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            IoC.Init();
+            // connect visualizer
+            var sourceDispatcher = IoCRegistrar.Container.Resolve<IMainReduxDispatcher>();
+            Bootstrapper.Init(sourceDispatcher);
+            //ReduxVisualizer.Init(
+            //    sourceDispatcher,
+            //    new string[] { "Todo.Engine.Actions" });
+            base.OnStartup(e);
+        }
+        protected override void OnExit(ExitEventArgs e)
+        {
+            IoCRegistrar.Container.Dispose();
+            base.OnExit(e);
+        }
     }
 }

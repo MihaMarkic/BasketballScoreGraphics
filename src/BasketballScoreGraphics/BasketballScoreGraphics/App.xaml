@@ -4,6 +4,21 @@
              xmlns:local="clr-namespace:BasketballScoreGraphics"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Key="ControllerButton" TargetType="Button">
+            <Setter Property="Margin" Value="2,4" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+        <Style x:Key="ControllerPositiveButton" TargetType="Button" BasedOn="{StaticResource ControllerButton}">
+            <Setter Property="Background" Value="DarkGreen" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+        <Style x:Key="ControllerLabel" TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Margin" Value="0,0,6,0" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
     </Application.Resources>
 </Application>

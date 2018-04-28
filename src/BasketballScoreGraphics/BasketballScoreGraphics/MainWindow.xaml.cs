@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Autofac;
+using BasketballScoreGraphics.Engine;
+using BasketballScoreGraphics.Engine.ViewModels;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace BasketballScoreGraphics
 {
@@ -20,9 +10,17 @@ namespace BasketballScoreGraphics
     /// </summary>
     public partial class MainWindow : Window
     {
+        public MainViewModel ViewModel { get; private set; }
         public MainWindow()
         {
             InitializeComponent();
+            ViewModel = IoCRegistrar.Container.Resolve<MainViewModel>();
+            ViewModel.Start();
+            DataContext = ViewModel;
+
+            var controller = new Controller();
+            controller.DataContext = ViewModel;
+            controller.Show();
         }
     }
 }
