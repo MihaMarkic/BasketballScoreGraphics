@@ -15,7 +15,7 @@ namespace BasketballScoreGraphics.Engine
             // register root dispatcher and initialize state
             builder.Register<IMainReduxDispatcher>(
                 ctx => new MainReduxDispatcher(
-                            initialState: new RootState("Domači", "Gostujoči", 0, 0, 0, 0, 0, PeriodType.BeforeGame, isTeamEdit: true),
+                            initialState: new RootState("Domači", "Gostujoči", 0, 0, 0, 0, 0, PeriodType.BeforeGame, isTeamEdit: true, isEndGame: false),
                             reducer: ctx.Resolve<IReduxReducer<RootState>>())
             ).SingleInstance();
             // register view models

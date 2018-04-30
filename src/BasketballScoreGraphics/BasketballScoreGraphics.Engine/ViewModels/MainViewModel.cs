@@ -13,6 +13,8 @@ namespace BasketballScoreGraphics.Engine.ViewModels
         public RelayCommand AdvancePeriodCommand { get; }
         public RelayCommand BackPeriodCommand { get; }
         public RelayCommand ResetCommand { get; }
+        public RelayCommand EndGameCommand { get; }
+        public RelayCommand ToggleTeamEditCommand { get; }
         public int HomeScore { get; private set; }
         public int AwayScore { get; private set; }
         public string HomeTeam { get; private set; }
@@ -23,6 +25,7 @@ namespace BasketballScoreGraphics.Engine.ViewModels
         public string PeriodDescription { get; private set; }
         public TeamControlsViewModel HomeTeamControls { get; }
         public TeamControlsViewModel AwayTeamControls { get; }
+        public string EditingButtonText { get; private set; }
         readonly string persistenceFileName;
         public MainViewModel(IMainReduxDispatcher dispatcher, Func<TeamType, TeamControlsViewModel> teamControlsViewModelFactory)
         {
@@ -33,6 +36,8 @@ namespace BasketballScoreGraphics.Engine.ViewModels
             AdvancePeriodCommand = new RelayCommand(() => dispatcher.Dispatch(new ChangePeriodAction(+1)));
             BackPeriodCommand = new RelayCommand(() => dispatcher.Dispatch(new ChangePeriodAction(-1)));
             ResetCommand = new RelayCommand(() => dispatcher.Dispatch(new ResetAction()));
+            EndGameCommand = new RelayCommand(() => dispatcher.Dispatch(new EndGameAction()));
+            ToggleTeamEditCommand = new RelayCommand(() => dispatcher.Dispatch(new ToggleTeamEditAction()));
             persistenceFileName = Path.Combine(Path.GetDirectoryName(typeof(MainViewModel).Assembly.Location), "persistence.json");
         }
         public void Start()
@@ -57,14 +62,10 @@ namespace BasketballScoreGraphics.Engine.ViewModels
                 string content = JsonConvert.SerializeObject(state);
                 File.WriteAllText(fileName, content);
             }
-            catch (Exception ex)
+            catch
             {
                 
             }
-        }
-        public void KeyPressed(char key)
-        {
-
         }
         void UpdateReduxState(object sender, StateChangedEventArgs<RootState> e)
         {
@@ -73,49 +74,58 @@ namespace BasketballScoreGraphics.Engine.ViewModels
                 SaveState(e.State, persistenceFileName);
             }
             var state = e.State;
+            EditingButtonText = state.IsTeamEdit ? "D" : "E";
             HomeScore = state.HomeScore;
             AwayScore = state.AwayScore;
             HomeTeam = state.Home;
             AwayTeam = state.Away;
             HomeFouls = state.HomeFouls;
             AwayFouls = state.AwayFouls;
-            switch (state.PeriodType)
+            if (state.IsEndGame)
             {
-                case PeriodType.Quarter:
-                case PeriodType.QuarterBreak:
-                case PeriodType.Overtime:
-                case PeriodType.OvertimeBreak:
-                    Period = state.Period.ToString();
-                    break;
-                case PeriodType.HalfTime:
-                    Period = "P";
-                    break;
-                case PeriodType.BeforeGame:
-                    Period = "";
-                    break;
-                case PeriodType.EndRegularGame:
-                    Period = "R";
-                    break;
+                Period = "K";
+                PeriodDescription = "Konec";
             }
-            switch (state.PeriodType)
+            else
             {
-                case PeriodType.Quarter:
+                switch (state.PeriodType)
+                {
+                    case PeriodType.Quarter:
+                    case PeriodType.QuarterBreak:
+                    case PeriodType.Overtime:
+                    case PeriodType.OvertimeBreak:
+                        Period = state.Period.ToString();
+                        break;
+                    case PeriodType.HalfTime:
+                        Period = "P";
+                        break;
+                    case PeriodType.BeforeGame:
+                        Period = "";
+                        break;
+                    case PeriodType.EndRegularGame:
+                        Period = "R";
+                        break;
+                }
+                switch (state.PeriodType)
+                {
+                    case PeriodType.Quarter:
 
-                    PeriodDescription = "četrtina";
-                    break;
-                case PeriodType.HalfTime:
-                    PeriodDescription = "polčas";
-                    break;
-                case PeriodType.OvertimeBreak:
-                case PeriodType.QuarterBreak:
-                    PeriodDescription = "odmor";
-                    break;
-                case PeriodType.Overtime:
-                    PeriodDescription = "podaljšek";
-                    break;
-                default:
-                    PeriodDescription = "";
-                    break;
+                        PeriodDescription = "četrtina";
+                        break;
+                    case PeriodType.HalfTime:
+                        PeriodDescription = "polčas";
+                        break;
+                    case PeriodType.OvertimeBreak:
+                    case PeriodType.QuarterBreak:
+                        PeriodDescription = "odmor";
+                        break;
+                    case PeriodType.Overtime:
+                        PeriodDescription = "podaljšek";
+                        break;
+                    default:
+                        PeriodDescription = "";
+                        break;
+                }
             }
         }
         protected override void Dispose(bool disposing)

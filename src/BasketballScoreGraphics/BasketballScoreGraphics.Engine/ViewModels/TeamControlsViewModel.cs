@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using BasketballScoreGraphics.Engine.Actions;
+﻿using BasketballScoreGraphics.Engine.Actions;
 using BasketballScoreGraphics.Engine.Core;
 using Sharp.Redux;
 

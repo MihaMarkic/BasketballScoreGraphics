@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:local="clr-namespace:BasketballScoreGraphics"
              xmlns:vm="clr-namespace:BasketballScoreGraphics.Engine.ViewModels;assembly=BasketballScoreGraphics.Engine"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -30,7 +31,7 @@
         </Grid.RowDefinitions>
         <TextBlock Style="{StaticResource ControllerLabel}" Text="{Binding TeamLabel}" />
         <TextBox Grid.Column="1" Grid.ColumnSpan="3" FontSize="20" Text="{Binding TeamName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                   IsEnabled="{Binding IsTeamEdit}"/>
+                   IsEnabled="{Binding IsTeamEdit}" />
         <TextBlock Style="{StaticResource ControllerLabel}" Text="Score" Grid.Row="1" Grid.RowSpan="2" />
         <Button Style="{StaticResource ControllerPositiveButton}" Command="{Binding ChangeScoreCommand}" CommandParameter="1" Grid.Row="1" Grid.Column="1">+1</Button>
         <Button Style="{StaticResource ControllerPositiveButton}" Command="{Binding ChangeScoreCommand}" CommandParameter="2" Grid.Row="1" Grid.Column="2">+2</Button>

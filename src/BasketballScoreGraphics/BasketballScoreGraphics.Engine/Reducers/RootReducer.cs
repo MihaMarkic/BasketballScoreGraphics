@@ -25,99 +25,107 @@ namespace BasketballScoreGraphics.Engine.Reducers
                     }
                     break;
                 case ChangePeriodAction changePeriodAction:
-                    int period = state.Period;
-                    PeriodType periodType = state.PeriodType;
-                    if (changePeriodAction.Difference == +1)
+                    if (changePeriodAction.Difference == -1 && state.IsEndGame)
                     {
-                        switch (state.PeriodType)
-                        {
-                            case PeriodType.BeforeGame:
-                                period = 1;
-                                periodType = PeriodType.Quarter;
-                                break;
-                            case PeriodType.Quarter:
-                                if (state.Period == 4)
-                                {
-                                    periodType = PeriodType.EndRegularGame;
-                                }
-                                else if (state.Period == 2)
-                                {
-                                    periodType = PeriodType.HalfTime;
-                                }
-                                else
-                                {
-                                    periodType = PeriodType.QuarterBreak;
-                                }
-                                break;
-                            case PeriodType.QuarterBreak:
-                                period++;
-                                periodType = PeriodType.Quarter;
-                                break;
-                            case PeriodType.HalfTime:
-                                period++;
-                                periodType = PeriodType.Quarter;
-                                break;
-                            case PeriodType.EndRegularGame:
-                                period = 1;
-                                periodType = PeriodType.Overtime;
-                                break;
-                            case PeriodType.Overtime:
-                                periodType = PeriodType.OvertimeBreak;
-                                break;
-                            case PeriodType.OvertimeBreak:
-                                period++;
-                                periodType = PeriodType.Overtime;
-                                break;
-                        }
+                        newState = state.Clone(isEndGame: false);
                     }
-                    else if(changePeriodAction.Difference == -1)
+                    else
                     {
-                        switch (state.PeriodType)
+                        int period = state.Period;
+                        PeriodType periodType = state.PeriodType;
+
+                        if (changePeriodAction.Difference == +1)
                         {
-                            case PeriodType.Quarter:
-                                if (state.Period == 3)
-                                {
-                                    period--;
-                                    periodType = PeriodType.HalfTime;
-                                }
-                                else if (state.Period == 1)
-                                {
-                                    periodType = PeriodType.BeforeGame;
-                                }
-                                else
-                                {
-                                    period--;
-                                    periodType = PeriodType.QuarterBreak;
-                                }
-                                break;
-                            case PeriodType.QuarterBreak:
-                                periodType = PeriodType.Quarter;
-                                break;
-                            case PeriodType.HalfTime:
-                                period = 2;
-                                periodType = PeriodType.Quarter;
-                                break;
-                            case PeriodType.EndRegularGame:
-                                period = 4;
-                                periodType = PeriodType.Quarter;
-                                break;
-                            case PeriodType.Overtime:
-                                if (period == 1)
-                                {
-                                    periodType = PeriodType.EndRegularGame;
-                                }
-                                else
-                                {
-                                    period--;
+                            switch (state.PeriodType)
+                            {
+                                case PeriodType.BeforeGame:
+                                    period = 1;
+                                    periodType = PeriodType.Quarter;
+                                    break;
+                                case PeriodType.Quarter:
+                                    if (state.Period == 4)
+                                    {
+                                        periodType = PeriodType.EndRegularGame;
+                                    }
+                                    else if (state.Period == 2)
+                                    {
+                                        periodType = PeriodType.HalfTime;
+                                    }
+                                    else
+                                    {
+                                        periodType = PeriodType.QuarterBreak;
+                                    }
+                                    break;
+                                case PeriodType.QuarterBreak:
+                                    period++;
+                                    periodType = PeriodType.Quarter;
+                                    break;
+                                case PeriodType.HalfTime:
+                                    period++;
+                                    periodType = PeriodType.Quarter;
+                                    break;
+                                case PeriodType.EndRegularGame:
+                                    period = 1;
+                                    periodType = PeriodType.Overtime;
+                                    break;
+                                case PeriodType.Overtime:
                                     periodType = PeriodType.OvertimeBreak;
-                                }
-                                break;
-                            case PeriodType.OvertimeBreak:
-                                periodType = PeriodType.Overtime;
-                                break;
+                                    break;
+                                case PeriodType.OvertimeBreak:
+                                    period++;
+                                    periodType = PeriodType.Overtime;
+                                    break;
+                            }
                         }
+                        else
+                        {
+                            switch (state.PeriodType)
+                            {
+                                case PeriodType.Quarter:
+                                    if (state.Period == 3)
+                                    {
+                                        period--;
+                                        periodType = PeriodType.HalfTime;
+                                    }
+                                    else if (state.Period == 1)
+                                    {
+                                        periodType = PeriodType.BeforeGame;
+                                    }
+                                    else
+                                    {
+                                        period--;
+                                        periodType = PeriodType.QuarterBreak;
+                                    }
+                                    break;
+                                case PeriodType.QuarterBreak:
+                                    periodType = PeriodType.Quarter;
+                                    break;
+                                case PeriodType.HalfTime:
+                                    period = 2;
+                                    periodType = PeriodType.Quarter;
+                                    break;
+                                case PeriodType.EndRegularGame:
+                                    period = 4;
+                                    periodType = PeriodType.Quarter;
+                                    break;
+                                case PeriodType.Overtime:
+                                    if (period == 1)
+                                    {
+                                        periodType = PeriodType.EndRegularGame;
+                                    }
+                                    else
+                                    {
+                                        period--;
+                                        periodType = PeriodType.OvertimeBreak;
+                                    }
+                                    break;
+                                case PeriodType.OvertimeBreak:
+                                    periodType = PeriodType.Overtime;
+                                    break;
+                            }
+                        }
+                        newState = state.Clone(period: period, periodType: periodType);
                     }
-                    newState = state.Clone(period: period, periodType: periodType);
                     break;
                 case ChangeScoreAction changeScoreAction:
                     if (changeScoreAction.TeamType == TeamType.Home)
@@ -146,7 +154,7 @@ namespace BasketballScoreGraphics.Engine.Reducers
                     newState = state.Clone(isTeamEdit: false);
                     break;
                 case ResetAction _:
-                    newState = new RootState("Domači", "Gostujoči", 0, 0, 0, 0, 0, PeriodType.BeforeGame, isTeamEdit: true);
+                    newState = new RootState("Domači", "Gostujoči", 0, 0, 0, 0, 0, PeriodType.BeforeGame, isTeamEdit: true, isEndGame: false);
                     break;
                 case SetTeamNameAction setTeamNameAction:
                     if (setTeamNameAction.TeamType == TeamType.Home)
@@ -160,6 +168,12 @@ namespace BasketballScoreGraphics.Engine.Reducers
                     break;
                 case LoadStateAction loadStateAction:
                     newState = loadStateAction.State;
+                    break;
+                case EndGameAction _:
+                    newState = state.Clone(isEndGame: true);
+                    break;
+                case ToggleTeamEditAction _:
+                    newState = state.Clone(isTeamEdit: !state.IsTeamEdit);
                     break;
                 default:
                     newState = state;

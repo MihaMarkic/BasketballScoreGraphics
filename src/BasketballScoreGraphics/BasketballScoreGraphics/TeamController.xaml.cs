@@ -1,4 +1,4 @@
-﻿using BasketballScoreGraphics.Engine.Core;
+﻿using BasketballScoreGraphics.Engine.ViewModels;
 using System.Windows.Controls;
 
 namespace BasketballScoreGraphics
@@ -12,5 +12,6 @@ namespace BasketballScoreGraphics
         {
             InitializeComponent();
         }
+        TeamControlsViewModel ViewModel => (TeamControlsViewModel)DataContext;
     }
 }
