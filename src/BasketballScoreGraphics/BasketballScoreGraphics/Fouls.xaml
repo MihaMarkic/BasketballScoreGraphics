@@ -10,7 +10,7 @@
         <Grid.Resources>
             <Style x:Key="Item" TargetType="Border">
                 <Setter Property="BorderBrush" Value="Black" />
-                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="BorderThickness" Value=".5" />
                 <Setter Property="Margin" Value="1,0,1,0" />
             </Style>
         </Grid.Resources>

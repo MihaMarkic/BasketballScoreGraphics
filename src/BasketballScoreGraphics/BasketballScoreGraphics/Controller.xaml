@@ -7,7 +7,8 @@
         xmlns:core ="clr-namespace:BasketballScoreGraphics.Engine.Core;assembly=BasketballScoreGraphics.Engine"
         mc:Ignorable="d" SizeToContent="WidthAndHeight"
         d:DataContext="{d:DesignData IsDesignTimeCreatable=False, Type=vm:MainViewModel}"
-        Title="Controller" HorizontalAlignment="Stretch">
+        Title="Controller" HorizontalAlignment="Stretch"
+        PreviewKeyUp="Window_PreviewKeyUp">
     <Grid Margin="6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -18,11 +19,15 @@
             <RowDefinition Height="Auto"  />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <local:TeamController DataContext="{Binding HomeTeamControls}" />
         <local:TeamController DataContext="{Binding AwayTeamControls}" Grid.Column="2" />
         <TextBlock Style="{StaticResource ControllerLabel}" Text="Period" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" />
         <Button Style="{StaticResource ControllerPositiveButton}" Grid.Row="2" Command="{Binding AdvancePeriodCommand}" >Advance</Button>
         <Button Style="{StaticResource ControllerButton}" Grid.Column="2" Grid.Row="2" Command="{Binding BackPeriodCommand}">Back</Button>
+        <TextBlock Style="{StaticResource ControllerLabel}" Text="Main" Grid.Row="3" Grid.ColumnSpan="3" HorizontalAlignment="Center" />
+        <Button Style="{StaticResource ControllerPositiveButton}" Grid.Row="4" Command="{Binding ResetCommand}" Background="DarkRed" >Reset</Button>
     </Grid>
 </Window>

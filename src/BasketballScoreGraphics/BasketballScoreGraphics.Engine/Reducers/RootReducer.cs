@@ -158,6 +158,9 @@ namespace BasketballScoreGraphics.Engine.Reducers
                         newState = state.Clone(away: setTeamNameAction.Name);
                     }
                     break;
+                case LoadStateAction loadStateAction:
+                    newState = loadStateAction.State;
+                    break;
                 default:
                     newState = state;
                     break;

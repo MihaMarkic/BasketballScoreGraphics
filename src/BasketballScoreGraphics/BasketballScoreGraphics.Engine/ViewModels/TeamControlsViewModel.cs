@@ -16,6 +16,7 @@ namespace BasketballScoreGraphics.Engine.ViewModels
         public RelayCommand<string> ChangeScoreCommand { get; }
         public RelayCommand<string> ChangeFoulsCommand { get; }
         public bool IsTeamEdit { get; private set; }
+        bool isUpdating;
         public TeamControlsViewModel(IMainReduxDispatcher dispatcher, TeamType teamType)
         {
             this.dispatcher = dispatcher;
@@ -30,17 +31,28 @@ namespace BasketballScoreGraphics.Engine.ViewModels
         private void Dispatcher_StateChanged(object sender, StateChangedEventArgs<RootState> e)
         {
             var state = e.State;
-            TeamName = TeamType == TeamType.Home ? state.Home : state.Away;
-            IsTeamEdit = state.IsTeamEdit;
+            isUpdating = true;
+            try
+            {
+                TeamName = TeamType == TeamType.Home ? state.Home : state.Away;
+                IsTeamEdit = state.IsTeamEdit;
+            }
+            finally
+            {
+                isUpdating = false;
+            }
         }
 
         protected override void OnPropertyChanged(string name = null)
         {
-            switch (name)
+            if (!isUpdating)
             {
-                case nameof(TeamName):
-                    dispatcher.Dispatch(new SetTeamNameAction(TeamType, TeamName));
-                    break;
+                switch (name)
+                {
+                    case nameof(TeamName):
+                        dispatcher.Dispatch(new SetTeamNameAction(TeamType, TeamName));
+                        break;
+                }
             }
             base.OnPropertyChanged(name);
         }
