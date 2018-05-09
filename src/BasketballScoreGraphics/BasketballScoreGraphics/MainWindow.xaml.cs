@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using BasketballScoreGraphics.Engine;
 using BasketballScoreGraphics.Engine.ViewModels;
+using System;
 using System.Windows;
 
 namespace BasketballScoreGraphics
@@ -21,6 +22,12 @@ namespace BasketballScoreGraphics
             var controller = new Controller();
             controller.DataContext = ViewModel;
             controller.Show();
+            controller.Closed += Controller_Closed;
+        }
+
+        private void Controller_Closed(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

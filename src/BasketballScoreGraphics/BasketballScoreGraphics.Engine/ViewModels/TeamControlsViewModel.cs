@@ -9,6 +9,7 @@ namespace BasketballScoreGraphics.Engine.ViewModels
         readonly IMainReduxDispatcher dispatcher;
         public TeamType TeamType { get; }
         public string TeamName { get; set; }
+        public uint TeamColor { get; set; }
         public string TeamLabel => TeamType == TeamType.Home ? "Domači" : "Gostujoči";
         public RelayCommand EnabledEditCommand { get; }
         public RelayCommand DisableEditCommand { get; }
@@ -35,6 +36,7 @@ namespace BasketballScoreGraphics.Engine.ViewModels
             {
                 TeamName = TeamType == TeamType.Home ? state.Home : state.Away;
                 IsTeamEdit = state.IsTeamEdit;
+                TeamColor = TeamType == TeamType.Home ? state.HomeColor : state.AwayColor;
             }
             finally
             {
@@ -50,6 +52,9 @@ namespace BasketballScoreGraphics.Engine.ViewModels
                 {
                     case nameof(TeamName):
                         dispatcher.Dispatch(new SetTeamNameAction(TeamType, TeamName));
+                        break;
+                    case nameof(TeamColor):
+                        dispatcher.Dispatch(new SetTeamColorAction(TeamType, TeamColor));
                         break;
                 }
             }

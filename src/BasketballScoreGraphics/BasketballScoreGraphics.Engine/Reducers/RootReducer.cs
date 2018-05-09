@@ -147,6 +147,16 @@ namespace BasketballScoreGraphics.Engine.Reducers
                         newState = state.Clone(awayScore: Math.Max(0, setScoreAction.Score));
                     }
                     break;
+                case SetTeamColorAction setTeamColorAction:
+                    if (setTeamColorAction.TeamType == TeamType.Home)
+                    {
+                        newState = state.Clone(homeColor: setTeamColorAction.Color);
+                    }
+                    else
+                    {
+                        newState = state.Clone(awayColor: setTeamColorAction.Color);
+                    }
+                    break;
                 case StartTeamEditAction _:
                     newState = state.Clone(isTeamEdit: true);
                     break;
@@ -154,7 +164,8 @@ namespace BasketballScoreGraphics.Engine.Reducers
                     newState = state.Clone(isTeamEdit: false);
                     break;
                 case ResetAction _:
-                    newState = new RootState("Domači", "Gostujoči", 0, 0, 0, 0, 0, PeriodType.BeforeGame, isTeamEdit: true, isEndGame: false);
+                    newState = new RootState("Domači", "Gostujoči", 0, 0, 0, 0, 0, PeriodType.BeforeGame, isTeamEdit: true, isEndGame: false,
+                        homeColor: 0xF00F, awayColor: 0xFF00);
                     break;
                 case SetTeamNameAction setTeamNameAction:
                     if (setTeamNameAction.TeamType == TeamType.Home)

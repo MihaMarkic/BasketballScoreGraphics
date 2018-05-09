@@ -21,6 +21,8 @@ namespace BasketballScoreGraphics.Engine.ViewModels
         public string AwayTeam { get; private set; }
         public int HomeFouls { get; private set; }
         public int AwayFouls { get; private set; }
+        public uint HomeColor { get; private set; }
+        public uint AwayColor { get; private set; }
         public string Period { get; private set; }
         public string PeriodDescription { get; private set; }
         public TeamControlsViewModel HomeTeamControls { get; }
@@ -81,6 +83,8 @@ namespace BasketballScoreGraphics.Engine.ViewModels
             AwayTeam = state.Away;
             HomeFouls = state.HomeFouls;
             AwayFouls = state.AwayFouls;
+            HomeColor = state.HomeColor;
+            AwayColor = state.AwayColor;
             if (state.IsEndGame)
             {
                 Period = "K";

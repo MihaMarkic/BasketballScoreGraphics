@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:cnv="clr-namespace:BasketballScoreGraphics.Converters"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:local="clr-namespace:BasketballScoreGraphics"
              xmlns:vm="clr-namespace:BasketballScoreGraphics.Engine.ViewModels;assembly=BasketballScoreGraphics.Engine"
@@ -11,7 +13,9 @@
              d:DataContext="{d:DesignData IsDesignTimeCreatable=False, Type=vm:TeamControlsViewModel}"
              d:DesignHeight="450">
     <Grid>
-       
+        <Grid.Resources>
+            <cnv:IntToColorConverter x:Key="IntToColorConverter" />
+        </Grid.Resources>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="60" />
@@ -28,19 +32,22 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TextBlock Style="{StaticResource ControllerLabel}" Text="{Binding TeamLabel}" />
         <TextBox Grid.Column="1" Grid.ColumnSpan="3" FontSize="20" Text="{Binding TeamName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                    IsEnabled="{Binding IsTeamEdit}" />
-        <TextBlock Style="{StaticResource ControllerLabel}" Text="Score" Grid.Row="1" Grid.RowSpan="2" />
-        <Button Style="{StaticResource ControllerPositiveButton}" Command="{Binding ChangeScoreCommand}" CommandParameter="1" Grid.Row="1" Grid.Column="1">+1</Button>
-        <Button Style="{StaticResource ControllerPositiveButton}" Command="{Binding ChangeScoreCommand}" CommandParameter="2" Grid.Row="1" Grid.Column="2">+2</Button>
-        <Button Style="{StaticResource ControllerPositiveButton}" Command="{Binding ChangeScoreCommand}" CommandParameter="3" Grid.Row="1" Grid.Column="3">+3</Button>
-        <Button Style="{StaticResource ControllerButton}" Command="{Binding ChangeScoreCommand}" CommandParameter="-1" Grid.Row="2" Grid.Column="1">-1</Button>
-        <Button Style="{StaticResource ControllerButton}" Command="{Binding ChangeScoreCommand}" CommandParameter="-2" Grid.Row="2" Grid.Column="2">-2</Button>
-        <Button Style="{StaticResource ControllerButton}" Command="{Binding ChangeScoreCommand}" CommandParameter="-3" Grid.Row="2" Grid.Column="3">-3</Button>
-        <TextBlock Style="{StaticResource ControllerLabel}" Text="Fouls" Grid.Row="3" Grid.RowSpan="2" />
-        <Button Style="{StaticResource ControllerPositiveButton}" Command="{Binding ChangeFoulsCommand}" CommandParameter="1" Grid.Column="1" Grid.Row="3">+1</Button>
-        <Button Style="{StaticResource ControllerButton}" Command="{Binding ChangeFoulsCommand}" CommandParameter="-1" Grid.Column="1" Grid.Row="4">-1</Button>
+        <xctk:ColorPicker Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" IsEnabled="{Binding IsTeamEdit}"  Margin="0,4,0,8"
+                          SelectedColor="{Binding TeamColor, Mode=TwoWay, Converter={StaticResource IntToColorConverter}}"/>
+        <TextBlock Style="{StaticResource ControllerLabel}" Text="Score" Grid.Row="2" Grid.RowSpan="2" />
+        <Button Style="{StaticResource ControllerPositiveButton}" Command="{Binding ChangeScoreCommand}" CommandParameter="1" Grid.Row="2" Grid.Column="1">+1</Button>
+        <Button Style="{StaticResource ControllerPositiveButton}" Command="{Binding ChangeScoreCommand}" CommandParameter="2" Grid.Row="2" Grid.Column="2">+2</Button>
+        <Button Style="{StaticResource ControllerPositiveButton}" Command="{Binding ChangeScoreCommand}" CommandParameter="3" Grid.Row="2" Grid.Column="3">+3</Button>
+        <Button Style="{StaticResource ControllerButton}" Command="{Binding ChangeScoreCommand}" CommandParameter="-1" Grid.Row="3" Grid.Column="1">-1</Button>
+        <Button Style="{StaticResource ControllerButton}" Command="{Binding ChangeScoreCommand}" CommandParameter="-2" Grid.Row="3" Grid.Column="2">-2</Button>
+        <Button Style="{StaticResource ControllerButton}" Command="{Binding ChangeScoreCommand}" CommandParameter="-3" Grid.Row="3" Grid.Column="3">-3</Button>
+        <TextBlock Style="{StaticResource ControllerLabel}" Text="Fouls" Grid.Row="4" Grid.RowSpan="2" />
+        <Button Style="{StaticResource ControllerPositiveButton}" Command="{Binding ChangeFoulsCommand}" CommandParameter="1" Grid.Column="1" Grid.Row="4">+1</Button>
+        <Button Style="{StaticResource ControllerButton}" Command="{Binding ChangeFoulsCommand}" CommandParameter="-1" Grid.Column="1" Grid.Row="5">-1</Button>
     </Grid>
 </UserControl>
