@@ -87,7 +87,7 @@ namespace BasketballScoreGraphics.Engine.ViewModels
             AwayColor = state.AwayColor;
             if (state.IsEndGame)
             {
-                Period = "K";
+                Period = "KON";
                 PeriodDescription = "Konec";
             }
             else
@@ -96,25 +96,27 @@ namespace BasketballScoreGraphics.Engine.ViewModels
                 {
                     case PeriodType.Quarter:
                     case PeriodType.QuarterBreak:
+                        Period = $"{state.Period}/4";
+                        break;
                     case PeriodType.Overtime:
                     case PeriodType.OvertimeBreak:
-                        Period = state.Period.ToString();
+                        Period = $"{state.Period}P";
                         break;
                     case PeriodType.HalfTime:
-                        Period = "P";
+                        Period = "POL";
                         break;
                     case PeriodType.BeforeGame:
                         Period = "";
                         break;
                     case PeriodType.EndRegularGame:
-                        Period = "R";
+                        Period = "4/4";
                         break;
                 }
                 switch (state.PeriodType)
                 {
                     case PeriodType.Quarter:
 
-                        PeriodDescription = "četrtina";
+                        PeriodDescription = "";
                         break;
                     case PeriodType.HalfTime:
                         PeriodDescription = "polčas";

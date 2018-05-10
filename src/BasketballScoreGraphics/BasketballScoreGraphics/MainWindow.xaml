@@ -8,26 +8,26 @@
         xmlns:vm="clr-namespace:BasketballScoreGraphics.Engine.ViewModels;assembly=BasketballScoreGraphics.Engine"
         mc:Ignorable="d"
         d:DataContext="{d:DesignData IsDesignTimeCreatable=False, Type=vm:MainViewModel}"
-        Title="MainWindow" Height="54" Width="500" WindowStyle="None" ResizeMode="NoResize">
+        Title="MainWindow" Height="60" Width="700" WindowStyle="None" ResizeMode="NoResize">
     <Grid Margin="4,0,4,4">
         <Grid.Resources>
             <cnv:IntToColorConverter x:Key="IntToColorConverter" />
             <Style x:Key="Team" TargetType="TextBlock">
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="Margin" Value="4" />
-                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontSize" Value="26" />
             </Style>
             <Style x:Key="Score" TargetType="TextBlock">
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
                 <Setter Property="Margin" Value="4" />
-                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontSize" Value="26" />
                 <Setter Property="FontWeight" Value="Bold" />
             </Style>
             <Style x:Key="Quarter" TargetType="TextBlock">
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
-                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontSize" Value="26" />
                 <Setter Property="FontWeight" Value="Normal" />
             </Style>
             <Style x:Key="QuarterTitle" TargetType="TextBlock">
@@ -38,7 +38,7 @@
             </Style>
             <Style x:Key="Fouls" TargetType="local:Fouls">
                 <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="Height" Value="4" />
+                <Setter Property="Height" Value="7" />
             </Style>
             <Style x:Key="TeamColor" TargetType="Border">
                 <Setter Property="Margin" Value="0,4" />
@@ -47,13 +47,13 @@
             </Style>
         </Grid.Resources>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="10" />
             <ColumnDefinition />
             <ColumnDefinition Width="60" />
-            <ColumnDefinition Width="40" />            
+            <ColumnDefinition Width="60" />            
             <ColumnDefinition Width="60" />
             <ColumnDefinition />
-            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="10" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition />            
@@ -70,7 +70,7 @@
         <TextBlock Style="{StaticResource Score}" Grid.Column="2" Text="{Binding HomeScore}" />
         <TextBlock Style="{StaticResource Score}" Grid.Column="4" Text="{Binding AwayScore}" />
         <TextBlock Style="{StaticResource Quarter}" Grid.Column="3" Text="{Binding Period}" />
-        <TextBlock Style="{StaticResource QuarterTitle}" Grid.Row="1" Grid.Column="3" Text="{Binding PeriodDescription}" />
+        <!--<TextBlock Style="{StaticResource QuarterTitle}" Grid.Row="1" Grid.Column="3" Text="{Binding PeriodDescription}" />-->
         <local:Fouls Grid.Row="1" Style="{StaticResource Fouls}" Grid.Column="1" Number="{Binding HomeFouls}" />
         <local:Fouls Grid.Row="1" Style="{StaticResource Fouls}" Grid.Column="5" Number="{Binding AwayFouls}" />
         <Border Grid.Column="6" Style="{StaticResource TeamColor}">

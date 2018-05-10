@@ -45,7 +45,8 @@ namespace BasketballScoreGraphics.Engine.Reducers
                                 case PeriodType.Quarter:
                                     if (state.Period == 4)
                                     {
-                                        periodType = PeriodType.EndRegularGame;
+                                        periodType = PeriodType.Overtime;
+                                        period = 1;
                                     }
                                     else if (state.Period == 2)
                                     {
@@ -53,7 +54,8 @@ namespace BasketballScoreGraphics.Engine.Reducers
                                     }
                                     else
                                     {
-                                        periodType = PeriodType.QuarterBreak;
+                                        //periodType = PeriodType.QuarterBreak;
+                                        period++;
                                     }
                                     break;
                                 case PeriodType.QuarterBreak:
@@ -69,7 +71,8 @@ namespace BasketballScoreGraphics.Engine.Reducers
                                     periodType = PeriodType.Overtime;
                                     break;
                                 case PeriodType.Overtime:
-                                    periodType = PeriodType.OvertimeBreak;
+                                    //periodType = PeriodType.OvertimeBreak;
+                                    period++;
                                     break;
                                 case PeriodType.OvertimeBreak:
                                     period++;
@@ -94,7 +97,7 @@ namespace BasketballScoreGraphics.Engine.Reducers
                                     else
                                     {
                                         period--;
-                                        periodType = PeriodType.QuarterBreak;
+                                        //periodType = PeriodType.QuarterBreak;
                                     }
                                     break;
                                 case PeriodType.QuarterBreak:
@@ -111,12 +114,13 @@ namespace BasketballScoreGraphics.Engine.Reducers
                                 case PeriodType.Overtime:
                                     if (period == 1)
                                     {
-                                        periodType = PeriodType.EndRegularGame;
+                                        periodType = PeriodType.Quarter;
+                                        period = 4;
                                     }
                                     else
                                     {
                                         period--;
-                                        periodType = PeriodType.OvertimeBreak;
+                                        //periodType = PeriodType.OvertimeBreak;
                                     }
                                     break;
                                 case PeriodType.OvertimeBreak:
