@@ -169,7 +169,7 @@ namespace BasketballScoreGraphics.Engine.Reducers
                     break;
                 case ResetAction _:
                     newState = new RootState("Domači", "Gostujoči", 0, 0, 0, 0, 0, PeriodType.BeforeGame, isTeamEdit: true, isEndGame: false,
-                        homeColor: 0xF00F, awayColor: 0xFF00);
+                        homeColor: 0xFFFFFF, awayColor: 0xFF00);
                     break;
                 case SetTeamNameAction setTeamNameAction:
                     if (setTeamNameAction.TeamType == TeamType.Home)

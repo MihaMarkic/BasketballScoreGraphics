@@ -69,7 +69,7 @@ namespace BasketballScoreGraphics.Engine
 				hash = hash * 37 + HomeFouls.GetHashCode();
 				hash = hash * 37 + AwayFouls.GetHashCode();
 				hash = hash * 37 + Period.GetHashCode();
-				hash = hash * 37 + (PeriodType != null ? PeriodType.GetHashCode() : 0);
+				hash = hash * 37 + PeriodType.GetHashCode();
 				hash = hash * 37 + IsTeamEdit.GetHashCode();
 				hash = hash * 37 + IsEndGame.GetHashCode();
 				hash = hash * 37 + HomeColor.GetHashCode();
