@@ -1,0 +1,77 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:BasketballScoreGraphics.Avalonia"
+        xmlns:cnv="clr-namespace:BasketballScoreGraphics.Avalonia.Converters"
+        Title="Basketball score" Height="60" Width="700" HasSystemDecorations="False">
+    <Grid Margin="4,0,4,4">
+        <Grid.Resources>
+            <cnv:IntToColorConverter x:Key="IntToColorConverter" />
+        </Grid.Resources>
+        <Grid.Styles>
+            <Style Selector="TextBlock.team">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Margin" Value="4" />
+                <Setter Property="FontSize" Value="26" />
+            </Style>
+            <Style Selector="TextBlock.score">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="Margin" Value="4" />
+                <Setter Property="FontSize" Value="26" />
+                <Setter Property="FontWeight" Value="Bold" />
+            </Style>
+            <Style Selector="TextBlock.quarter">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="26" />
+                <Setter Property="FontWeight" Value="Normal" />
+            </Style>
+            <Style Selector="TextBlock.quarterTitle">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="HorizontalAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="8" />
+                <Setter Property="FontWeight" Value="Normal" />
+            </Style>
+            <Style Selector="local:Fouls">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Height" Value="7" />
+            </Style>
+            <Style Selector="Border.teamColor">
+                <Setter Property="Margin" Value="0,4" />
+                <Setter Property="BorderThickness" Value="0.5" />
+                <Setter Property="BorderBrush" Value="DarkGray" />
+            </Style>
+        </Grid.Styles>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="60" />
+            <ColumnDefinition Width="60" />
+            <ColumnDefinition Width="60" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="10" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition  Height="10"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Column="3" Grid.RowSpan="2" Background="LightGray" />
+        <Border Classes="teamColor" >
+            <Border.Background>
+                <SolidColorBrush Color="{Binding HomeColor, Mode=OneWay, Converter={StaticResource IntToColorConverter}}" />
+            </Border.Background>
+        </Border>
+        <TextBlock Classes="team" Grid.Column="1" Text="{Binding HomeTeam}" HorizontalAlignment="Right" />
+        <TextBlock Classes="team" Grid.Column="5" Text="{Binding AwayTeam}" HorizontalAlignment="Left" />
+        <TextBlock Classes="score" Grid.Column="2" Text="{Binding HomeScore}" />
+        <TextBlock Classes="score" Grid.Column="4" Text="{Binding AwayScore}" />
+        <TextBlock Classes="quarter" Grid.Column="3" Text="{Binding Period}" />
+        <local:Fouls Grid.Row="1" Grid.Column="1" Number="{Binding HomeFouls}" />
+        <local:Fouls Grid.Row="1" Grid.Column="5" Number="{Binding AwayFouls}" />
+        <Border Grid.Column="6" Classes="teamColor">
+            <Border.Background>
+                <SolidColorBrush Color="{Binding AwayColor, Mode=OneWay, Converter={StaticResource IntToColorConverter}}" />
+            </Border.Background>
+        </Border>
+    </Grid>
+</Window>
