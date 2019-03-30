@@ -1,0 +1,23 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Styles>
+        <StyleInclude Source="resm:Avalonia.Themes.Default.DefaultTheme.xaml?assembly=Avalonia.Themes.Default"/>
+        <StyleInclude Source="resm:Avalonia.Themes.Default.Accents.BaseLight.xaml?assembly=Avalonia.Themes.Default"/>
+        <Style Selector="Button.controllerButton">
+            <Setter Property="Margin" Value="2,4" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+        <Style Selector="Button.controllerPositiveButton"> <!-- BasedOn="{StaticResource ControllerButton}" -->
+            <Setter Property="Background" Value="DarkGreen" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+        <Style Selector="TextBlock.controllerLabel">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="Margin" Value="0,0,6,0" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="20" />
+        </Style>
+    </Application.Styles>
+</Application>

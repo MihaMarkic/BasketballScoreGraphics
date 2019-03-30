@@ -1,0 +1,54 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:cnv="clr-namespace:BasketballScoreGraphics.Avalonia.Converters"
+             xmlns:local="clr-namespace:BasketballScoreGraphics.Avalonia">
+    <Grid>
+        <Grid.Resources>
+            <cnv:IntToColorConverter x:Key="IntToColorItemConverter" />
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="60" />
+            <ColumnDefinition Width="60" />
+            <ColumnDefinition Width="60" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Classes="controllerLabel" Text="{Binding TeamLabel}" />
+        <TextBox Grid.Column="1" Grid.ColumnSpan="3" FontSize="20" Text="{Binding TeamName, Mode=TwoWay}"
+                   IsEnabled="{Binding IsTeamEdit}" />
+        <!--<xctk:ColorPicker Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" IsEnabled="{Binding IsTeamEdit}"  Margin="0,4,0,8"
+                          SelectedColor="{Binding TeamColor, Mode=TwoWay, Converter={StaticResource IntToColorConverter}}"/>-->
+        <DropDown x:Name="TeamColorPicker" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" IsEnabled="{Binding IsTeamEdit}"  Margin="0,4,0,8" Height="30"
+                  SelectedItem="{Binding TeamColor, Mode=OneWayToSource, Converter={StaticResource IntToColorItemConverter}}">
+            <DropDown.ItemTemplate>
+                <DataTemplate DataType="{x:Type local:ColorItem}">
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Panel Height="20" Width="20" Background="{Binding Brush}" />
+                        <TextBlock Grid.Column="1" Text="{Binding Name}" Margin="4,0,0,0" />
+                    </Grid>
+                </DataTemplate>
+            </DropDown.ItemTemplate>
+        </DropDown>
+        <TextBlock Classes="controllerLabel" Text="Score" Grid.Row="2" Grid.RowSpan="2" />
+        <Button Classes="controllerButton controllerPositiveButton" Command="{Binding ChangeScoreCommand}" CommandParameter="1" Grid.Row="2" Grid.Column="1">+1</Button>
+        <Button Classes="controllerButton controllerPositiveButton" Command="{Binding ChangeScoreCommand}" CommandParameter="2" Grid.Row="2" Grid.Column="2">+2</Button>
+        <Button Classes="controllerButton controllerPositiveButton" Command="{Binding ChangeScoreCommand}" CommandParameter="3" Grid.Row="2" Grid.Column="3">+3</Button>
+        <Button Classes="controllerButton" Command="{Binding ChangeScoreCommand}" CommandParameter="-1" Grid.Row="3" Grid.Column="1">-1</Button>
+        <Button Classes="controllerButton" Command="{Binding ChangeScoreCommand}" CommandParameter="-2" Grid.Row="3" Grid.Column="2">-2</Button>
+        <Button Classes="controllerButton" Command="{Binding ChangeScoreCommand}" CommandParameter="-3" Grid.Row="3" Grid.Column="3">-3</Button>
+        <TextBlock Classes="controllerLabel" Text="Fouls" Grid.Row="4" Grid.RowSpan="2" />
+        <Button Classes="controllerButton controllerPositiveButton" Command="{Binding ChangeFoulsCommand}" CommandParameter="1" Grid.Column="1" Grid.Row="4">+1</Button>
+        <Button Classes="controllerButton" Command="{Binding ChangeFoulsCommand}" CommandParameter="-1" Grid.Column="1" Grid.Row="5">-1</Button>
+    </Grid>
+</UserControl>

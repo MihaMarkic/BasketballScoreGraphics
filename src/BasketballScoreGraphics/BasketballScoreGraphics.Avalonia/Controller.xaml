@@ -1,0 +1,29 @@
+<Window xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:BasketballScoreGraphics.Avalonia"
+             Title="Controller" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+             Height="450" Width="600">
+    <Grid Margin="6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="24" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"  />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <local:TeamController DataContext="{Binding HomeTeamControls}" />
+        <local:TeamController DataContext="{Binding AwayTeamControls}" Grid.Column="2" />
+        <Button Grid.Column="1" VerticalAlignment="Top" Margin="2,6,2,0" Content="{Binding EditingButtonText}" Command="{Binding ToggleTeamEditCommand}" />
+        <TextBlock Classes="controllerLabel" Text="Period" Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center" />
+        <Button Classes="controllerButton controllerPositiveButton" Grid.Row="2" Command="{Binding AdvancePeriodCommand}" >Advance</Button>
+        <Button Classes="controllerButton" Grid.Column="2" Grid.Row="2" Command="{Binding BackPeriodCommand}">Back</Button>
+        <TextBlock Classes="controllerLabel" Text="Main" Grid.Row="3" Grid.ColumnSpan="3" HorizontalAlignment="Center" />
+        <Button Classes="controllerButton controllerPositiveButton" Grid.Row="4" Command="{Binding ResetCommand}" Background="DarkRed" >Reset</Button>
+        <Button Classes="controllerButton controllerPositiveButton" Grid.Row="4" Command="{Binding EndGameCommand}" Background="DarkOrange" Grid.Column="2">Konec</Button>
+    </Grid>
+</Window>
