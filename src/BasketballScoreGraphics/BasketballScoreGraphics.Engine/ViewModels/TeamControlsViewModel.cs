@@ -1,6 +1,9 @@
 ﻿using BasketballScoreGraphics.Engine.Actions;
+using BasketballScoreGraphics.Engine.Config;
 using BasketballScoreGraphics.Engine.Core;
 using Sharp.Redux;
+using System;
+using System.Linq;
 
 namespace BasketballScoreGraphics.Engine.ViewModels
 {
@@ -16,6 +19,7 @@ namespace BasketballScoreGraphics.Engine.ViewModels
         public RelayCommand<string> ChangeScoreCommand { get; }
         public RelayCommand<string> ChangeFoulsCommand { get; }
         public bool IsTeamEdit { get; private set; }
+        public Team[] Teams { get; private set; }
         bool isUpdating;
         public TeamControlsViewModel(IMainReduxDispatcher dispatcher, TeamType teamType)
         {
@@ -37,6 +41,7 @@ namespace BasketballScoreGraphics.Engine.ViewModels
                 TeamName = TeamType == TeamType.Home ? state.Home : state.Away;
                 IsTeamEdit = state.IsTeamEdit;
                 TeamColor = TeamType == TeamType.Home ? state.HomeColor : state.AwayColor;
+                Teams = state.Configuration?.Teams;
             }
             finally
             {
@@ -52,6 +57,12 @@ namespace BasketballScoreGraphics.Engine.ViewModels
                 {
                     case nameof(TeamName):
                         dispatcher.Dispatch(new SetTeamNameAction(TeamType, TeamName));
+                        var team = Teams.Where(t => string.Equals(t.Name, TeamName, StringComparison.CurrentCultureIgnoreCase)).SingleOrDefault();
+                        if (team != null)
+                        {
+                            dispatcher.Dispatch(new SetTeamColorAction(TeamType, (uint)(team.Color | 0xFF << 24)));
+                            dispatcher.Dispatch(new SetTeamLogoAction(TeamType, team.Logo));
+                        }
                         break;
                     case nameof(TeamColor):
                         dispatcher.Dispatch(new SetTeamColorAction(TeamType, TeamColor));

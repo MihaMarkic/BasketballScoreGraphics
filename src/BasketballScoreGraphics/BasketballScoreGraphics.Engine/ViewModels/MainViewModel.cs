@@ -1,5 +1,7 @@
 ﻿using BasketballScoreGraphics.Engine.Actions;
+using BasketballScoreGraphics.Engine.Config;
 using BasketballScoreGraphics.Engine.Core;
+using BasketballScoreGraphics.Engine.Services.Implementation;
 using Newtonsoft.Json;
 using Sharp.Redux;
 using System;
@@ -23,6 +25,8 @@ namespace BasketballScoreGraphics.Engine.ViewModels
         public int AwayFouls { get; private set; }
         public uint HomeColor { get; private set; }
         public uint AwayColor { get; private set; }
+        public string HomeLogo { get; private set; }
+        public string AwayLogo { get; private set; }
         public string Period { get; private set; }
         public string PeriodDescription { get; private set; }
         public TeamControlsViewModel HomeTeamControls { get; }
@@ -52,6 +56,11 @@ namespace BasketballScoreGraphics.Engine.ViewModels
                     var content = File.ReadAllText(persistenceFileName);
                     var loadedState = JsonConvert.DeserializeObject<RootState>(content);
                     dispatcher.Dispatch(new LoadStateAction(loadedState));
+                }
+                var configuration = ConfigLoader.Load();
+                if (configuration != null)
+                {
+                    dispatcher.Dispatch(new LoadConfigurationAction(configuration));
                 }
             }
             catch (Exception)
@@ -85,6 +94,8 @@ namespace BasketballScoreGraphics.Engine.ViewModels
             AwayFouls = state.AwayFouls;
             HomeColor = state.HomeColor;
             AwayColor = state.AwayColor;
+            HomeLogo = state.HomeLogo;
+            AwayLogo = state.AwayLogo;
             if (state.IsEndGame)
             {
                 Period = "KON";

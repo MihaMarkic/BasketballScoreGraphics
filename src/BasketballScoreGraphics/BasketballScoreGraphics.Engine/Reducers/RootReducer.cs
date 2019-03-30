@@ -1,4 +1,5 @@
 ﻿using BasketballScoreGraphics.Engine.Actions;
+using BasketballScoreGraphics.Engine.Config;
 using BasketballScoreGraphics.Engine.Core;
 using Sharp.Redux;
 using System;
@@ -161,6 +162,16 @@ namespace BasketballScoreGraphics.Engine.Reducers
                         newState = state.Clone(awayColor: setTeamColorAction.Color);
                     }
                     break;
+                case SetTeamLogoAction setTeamLogoAction:
+                    if (setTeamLogoAction.TeamType == TeamType.Home)
+                    {
+                        newState = state.Clone(homeLogo: setTeamLogoAction.Logo);
+                    }
+                    else
+                    {
+                        newState = state.Clone(awayLogo: setTeamLogoAction.Logo);
+                    }
+                    break;
                 case StartTeamEditAction _:
                     newState = state.Clone(isTeamEdit: true);
                     break;
@@ -169,7 +180,7 @@ namespace BasketballScoreGraphics.Engine.Reducers
                     break;
                 case ResetAction _:
                     newState = new RootState("Domači", "Gostujoči", 0, 0, 0, 0, 0, PeriodType.BeforeGame, isTeamEdit: true, isEndGame: false,
-                        homeColor: 0xF00F, awayColor: 0xFF00);
+                        homeColor: 0xF00F, awayColor: 0xFF00, homeLogo: null, awayLogo: null, configuration:  state.Configuration);
                     break;
                 case SetTeamNameAction setTeamNameAction:
                     if (setTeamNameAction.TeamType == TeamType.Home)
@@ -189,6 +200,9 @@ namespace BasketballScoreGraphics.Engine.Reducers
                     break;
                 case ToggleTeamEditAction _:
                     newState = state.Clone(isTeamEdit: !state.IsTeamEdit);
+                    break;
+                case LoadConfigurationAction loadConfigurationAction:
+                    newState = state.Clone(configuration: loadConfigurationAction.Configuration);
                     break;
                 default:
                     newState = state;
