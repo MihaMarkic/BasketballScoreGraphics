@@ -88,6 +88,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters\FilePathToImageConverter.cs" />
     <Compile Include="Converters\IntToColorConverter.cs" />
+    <Compile Include="Extensions\WpfExtensions.cs" />
     <Compile Include="IoC.cs" />
     <Compile Include="TeamController.xaml.cs">
       <DependentUpon>TeamController.xaml</DependentUpon>

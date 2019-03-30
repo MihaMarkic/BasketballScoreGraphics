@@ -9,9 +9,10 @@ using System.IO;
 
 namespace BasketballScoreGraphics.Engine.ViewModels
 {
-    public class MainViewModel : NotifiableObject
+    public sealed class MainViewModel : NotifiableObject
     {
         readonly IMainReduxDispatcher dispatcher;
+        public event EventHandler<UpdatingScoreEventArgs> UpdatingScore;
         public RelayCommand AdvancePeriodCommand { get; }
         public RelayCommand BackPeriodCommand { get; }
         public RelayCommand ResetCommand { get; }
@@ -46,6 +47,7 @@ namespace BasketballScoreGraphics.Engine.ViewModels
             ToggleTeamEditCommand = new RelayCommand(() => dispatcher.Dispatch(new ToggleTeamEditAction()));
             persistenceFileName = Path.Combine(Path.GetDirectoryName(typeof(MainViewModel).Assembly.Location), "persistence.json");
         }
+        void OnUpdatingScore(UpdatingScoreEventArgs e) => UpdatingScore?.Invoke(this, e);
         public void Start()
         {
             dispatcher.Start();
@@ -86,7 +88,15 @@ namespace BasketballScoreGraphics.Engine.ViewModels
             }
             var state = e.State;
             EditingButtonText = state.IsTeamEdit ? "D" : "E";
+            if (HomeScore != state.HomeScore)
+            {
+                OnUpdatingScore(new UpdatingScoreEventArgs(TeamType.Home, state.HomeScore - HomeScore));
+            }
             HomeScore = state.HomeScore;
+            if (AwayScore != state.AwayScore)
+            {
+                OnUpdatingScore(new UpdatingScoreEventArgs(TeamType.Away, state.AwayScore - AwayScore));
+            }
             AwayScore = state.AwayScore;
             HomeTeam = state.Home;
             AwayTeam = state.Away;
