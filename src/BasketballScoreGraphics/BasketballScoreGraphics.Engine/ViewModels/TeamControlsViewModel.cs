@@ -56,7 +56,9 @@ namespace BasketballScoreGraphics.Engine.ViewModels
                 switch (name)
                 {
                     case nameof(TeamName):
-                        dispatcher.Dispatch(new SetTeamNameAction(TeamType, TeamName));
+                        string shortName = Teams.Where(t => string.Equals(t.Name, TeamName, StringComparison.CurrentCultureIgnoreCase))
+                            .SingleOrDefault()?.ShortName;
+                        dispatcher.Dispatch(new SetTeamNameAction(TeamType, TeamName, shortName));
                         var team = Teams.Where(t => string.Equals(t.Name, TeamName, StringComparison.CurrentCultureIgnoreCase)).SingleOrDefault();
                         if (team != null)
                         {

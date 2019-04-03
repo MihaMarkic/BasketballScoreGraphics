@@ -24,9 +24,19 @@ namespace BasketballScoreGraphics.Engine.Services.Implementation
                     teams: (from t in doc.Root.Elements("Team")
                             select new Team(
                                 name: (string)t.Attribute("Name"),
+                                shortName: (string)t.Attribute("Short"),
                                 logo: (string)t.Attribute("Logo"),
+                                coach: (string)t.Attribute("Coach"),
                                 color: ConvertToUint((string)t.Attribute("Color")),
-                                players: null
+                                players: (from p in t.Element("Players").Elements("Player")
+                                          select new Player(
+                                              number: int.TryParse((string)p.Attribute("Number"), out int number) ? number : (int?)null,
+                                              name: (string)p.Attribute("Name"),
+                                              birthYear: int.TryParse((string)p.Attribute("BirthYear"), out int birthYear) ? birthYear : (int?)null,
+                                              height: int.TryParse((string)p.Attribute("Height"), out int height) ? height : (int?)null,
+                                              role: (string)p.Attribute("Role")
+                                         )
+                                        ).ToArray()
                             )).ToArray()
                     );
                 return config;

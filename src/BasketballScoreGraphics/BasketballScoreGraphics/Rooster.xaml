@@ -1,0 +1,14 @@
+﻿<Window x:Class="BasketballScoreGraphics.Rooster"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BasketballScoreGraphics"
+        mc:Ignorable="d"
+        WindowStyle="None" Background="#bbbbbb"
+        Title="Rooster" Height="600" Width="800">
+    <Grid Margin="6">
+        <local:TeamRooster x:Name="Home" DataContext="{Binding HomeTeam}" />
+        <local:TeamRooster x:Name="Away" DataContext="{Binding AwayTeam}" Grid.Column="1" Opacity="0" />
+    </Grid>
+</Window>

@@ -90,8 +90,14 @@
     <Compile Include="Converters\IntToColorConverter.cs" />
     <Compile Include="Extensions\WpfExtensions.cs" />
     <Compile Include="IoC.cs" />
+    <Compile Include="Rooster.xaml.cs">
+      <DependentUpon>Rooster.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TeamController.xaml.cs">
       <DependentUpon>TeamController.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TeamRooster.xaml.cs">
+      <DependentUpon>TeamRooster.xaml</DependentUpon>
     </Compile>
     <Page Include="Controller.xaml">
       <SubType>Designer</SubType>
@@ -119,8 +125,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Rooster.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TeamController.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TeamRooster.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

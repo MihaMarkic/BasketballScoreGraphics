@@ -179,17 +179,17 @@ namespace BasketballScoreGraphics.Engine.Reducers
                     newState = state.Clone(isTeamEdit: false);
                     break;
                 case ResetAction _:
-                    newState = new RootState("Domači", "Gostujoči", 0, 0, 0, 0, 0, PeriodType.BeforeGame, isTeamEdit: true, isEndGame: false,
+                    newState = new RootState("Domači", "Gostujoči", "Domači", "Gostujoči", 0, 0, 0, 0, 0, PeriodType.BeforeGame, isTeamEdit: true, isEndGame: false,
                         homeColor: 0xF00F, awayColor: 0xFF00, homeLogo: null, awayLogo: null, configuration:  state.Configuration);
                     break;
                 case SetTeamNameAction setTeamNameAction:
                     if (setTeamNameAction.TeamType == TeamType.Home)
                     {
-                        newState = state.Clone(home: setTeamNameAction.Name);
+                        newState = state.Clone(home: setTeamNameAction.Name, shortHome: setTeamNameAction.ShortName);
                     }
                     else
                     {
-                        newState = state.Clone(away: setTeamNameAction.Name);
+                        newState = state.Clone(away: setTeamNameAction.Name, shortAway: setTeamNameAction.ShortName);
                     }
                     break;
                 case LoadStateAction loadStateAction:

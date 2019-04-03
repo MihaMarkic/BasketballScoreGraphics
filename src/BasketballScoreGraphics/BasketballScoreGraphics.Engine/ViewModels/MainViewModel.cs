@@ -33,10 +33,13 @@ namespace BasketballScoreGraphics.Engine.ViewModels
         public TeamControlsViewModel HomeTeamControls { get; }
         public TeamControlsViewModel AwayTeamControls { get; }
         public string EditingButtonText { get; private set; }
+        public RoosterViewModel RoosterViewModel { get; }
         readonly string persistenceFileName;
-        public MainViewModel(IMainReduxDispatcher dispatcher, Func<TeamType, TeamControlsViewModel> teamControlsViewModelFactory)
+        public MainViewModel(IMainReduxDispatcher dispatcher, Func<TeamType, TeamControlsViewModel> teamControlsViewModelFactory,
+            RoosterViewModel rooster)
         {
             this.dispatcher = dispatcher;
+            RoosterViewModel = rooster;
             dispatcher.StateChanged += UpdateReduxState;
             HomeTeamControls = teamControlsViewModelFactory(TeamType.Home);
             AwayTeamControls = teamControlsViewModelFactory(TeamType.Away);
@@ -98,8 +101,8 @@ namespace BasketballScoreGraphics.Engine.ViewModels
                 OnUpdatingScore(new UpdatingScoreEventArgs(TeamType.Away, state.AwayScore - AwayScore));
             }
             AwayScore = state.AwayScore;
-            HomeTeam = state.Home;
-            AwayTeam = state.Away;
+            HomeTeam = state.ShortHome;
+            AwayTeam = state.ShortAway;
             HomeFouls = state.HomeFouls;
             AwayFouls = state.AwayFouls;
             HomeColor = state.HomeColor;

@@ -1,0 +1,110 @@
+﻿<UserControl x:Class="BasketballScoreGraphics.TeamRooster"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:BasketballScoreGraphics"
+             xmlns:vm="clr-namespace:BasketballScoreGraphics.Engine.ViewModels;assembly=BasketballScoreGraphics.Engine"
+             xmlns:cnv="clr-namespace:BasketballScoreGraphics.Converters"
+             xmlns:cnf="clr-namespace:BasketballScoreGraphics.Engine.Config;assembly=BasketballScoreGraphics.Engine"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignData IsDesignTimeCreatable=False, Type=cnf:Team}"
+             d:DesignHeight="600" d:DesignWidth="400">
+    <Grid HorizontalAlignment="Center">
+        <Grid.Resources>
+            <cnv:FilePathToImageConverter x:Key="FilePathToImageConverter" />
+            <SolidColorBrush x:Key="FontBrush" Color="#222222" />
+            <sys:Double x:Key="TextSize">23</sys:Double>
+            <Style x:Key="Team" TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Margin" Value="4" />
+                <Setter Property="FontSize" Value="36" />
+                <Setter Property="Foreground" Value="{StaticResource FontBrush}" />
+                <Setter Property="RenderOptions.EdgeMode" Value="Unspecified" />
+            </Style>
+            <Style x:Key="Label" TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Margin" Value="4" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="Foreground" Value="{StaticResource FontBrush}" />
+                <Setter Property="RenderOptions.EdgeMode" Value="Unspecified" />
+            </Style>
+            <Style x:Key="PlayerName" TargetType="TextBlock">
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Margin" Value="4" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="{StaticResource FontBrush}" />
+                <Setter Property="RenderOptions.EdgeMode" Value="Unspecified" />
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="210" />
+            <ColumnDefinition Width="8" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Image HorizontalAlignment="Center" Source="{Binding Logo, Converter={StaticResource FilePathToImageConverter}}" />
+        <DataGrid x:Name="Players" Grid.Column="2" ItemsSource="{Binding Players}" HorizontalAlignment="Center" VerticalAlignment="Center" HeadersVisibility="None"
+                  AutoGenerateColumns="False" Background="{x:Null}" GridLinesVisibility="None" BorderThickness="0"
+                  IsReadOnly="True" SelectionChanged="Players_SelectionChanged">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="{x:Null}" />
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn FontSize="{StaticResource TextSize}" Binding="{Binding Number}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style>
+                            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Right"/>
+                            <Setter Property="FrameworkElement.VerticalAlignment" Value="Bottom"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn FontSize="{StaticResource TextSize}" Binding="{Binding Name}" FontWeight="Bold" Width="Auto">
+                    <DataGridTextColumn.CellStyle>
+                        <Style>
+                            <Setter Property="FrameworkElement.VerticalAlignment" Value="Bottom"/>
+                            <Setter Property="FrameworkElement.Margin" Value="6,0,6,0"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn FontSize="18" Width="100" Binding="{Binding Height, StringFormat='{}{0}cm',Mode=OneWay}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style>
+                            <Setter Property="FrameworkElement.VerticalAlignment" Value="Bottom"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <!--<DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Margin="8,2,0,2">
+                                <TextBlock.Inlines>
+                                    <Run FontSize="{StaticResource TextSize}" FontWeight="Bold" Text="{Binding Name,Mode=OneWay}" />
+                                    <Run FontSize="18" Text="{Binding Height, StringFormat='  {0}cm',Mode=OneWay}"/>
+                                </TextBlock.Inlines>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>-->
+                <DataGridTextColumn FontSize="18" Binding="{Binding Role}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style>
+                            <Setter Property="FrameworkElement.VerticalAlignment" Value="Bottom"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Style="{StaticResource Label}" Text="Trener" />
+            <TextBlock Style="{StaticResource PlayerName}" Text="{Binding Coach}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

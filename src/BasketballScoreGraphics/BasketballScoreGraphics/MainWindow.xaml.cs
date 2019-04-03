@@ -18,6 +18,7 @@ namespace BasketballScoreGraphics
     public sealed partial class MainWindow : Window
     {
         public MainViewModel ViewModel { get; private set; }
+        Rooster rooster;
         public MainWindow()
         {
             InitializeComponent();
@@ -30,6 +31,12 @@ namespace BasketballScoreGraphics
             controller.DataContext = ViewModel;
             controller.Show();
             controller.Closed += Controller_Closed;
+
+            rooster = new Rooster
+            {
+                DataContext = ViewModel.RoosterViewModel,
+            };
+            rooster.Show();
         }
 
         /// <summary>
@@ -96,6 +103,7 @@ namespace BasketballScoreGraphics
 
         void Controller_Closed(object sender, EventArgs e)
         {
+            rooster.Close();
             Close();
         }
     }
